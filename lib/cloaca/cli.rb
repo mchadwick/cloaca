@@ -34,6 +34,14 @@ module Cloaca
       Operations::AddFixedValueColumn.new(parse_options).run!
     end
 
+    desc "change-col-delimiter", "change the column delimiter for a stream of data"
+    method_option :"old-col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"new-col-delim", type: :string, required: true, banner: "column delimiter"
+
+    def change_col_delimiter
+      Operations::ChangeColumnDelimiter.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
@@ -51,6 +59,8 @@ module Cloaca
         index_header: options[:"index-header"],
         index_seed: options[:"index-seed"],
         input: $stdin,
+        new_column_delimiter: options[:"new-col-delim"],
+        old_column_delimiter: options[:"old-col-delim"],
         output: $stdout,
       }
     end
