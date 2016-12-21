@@ -1,5 +1,5 @@
-require "cloaca/version"
+require "thor"
 
-module Cloaca
-  # Your code goes here...
-end
+require "cloaca/version"
+require "cloaca/cli"
+require "cloaca/operations/add_integer_index_column"

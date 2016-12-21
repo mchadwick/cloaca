@@ -1,3 +1,12 @@
 #!/usr/bin/env ruby
 
+# Exit cleanly from an early interrupt
+Signal.trap("INT") { exit 1 }
+
+# Flush output immediately
+$stdout.sync = true
+
+require "bundler/setup"
 require "cloaca"
+
+Cloaca::CLI.start(ARGV, debug: true)
