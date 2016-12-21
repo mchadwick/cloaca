@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matthew Chadwick"]
   spec.email         = ["matthew.chadwick@gmail.com"]
 
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.summary       = %q{Cloaca providers a library of transformations for CSV files and other row structured data.}
   spec.license       = "MIT"
