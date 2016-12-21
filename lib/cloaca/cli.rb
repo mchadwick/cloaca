@@ -3,6 +3,18 @@ module Cloaca
 
     package_name "Cloaca"
 
+    desc "add-integer-index-column", "adds a index column to a stream of data"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"index-header", type: :string, banner: "index header value or omit if no header row"
+    method_option :"index-delta", type: :numeric, default: 1, banner: "delta between consecutive index values"
+    method_option :"index-seed", type: :numeric, default: 0, banner: "initial index value"
+
+    def add_integer_index_column
+      assert_integer(:"index-delta")
+      assert_integer(:"index-seed")
+      Operations::AddNumericIndexColumn.new(parse_options).run!
+    end
+
     desc "add-numeric-index-column", "adds a index column to a stream of data"
     method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
     method_option :"index-header", type: :string, banner: "index header value or omit if no header row"
