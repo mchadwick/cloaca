@@ -3,24 +3,30 @@ module Cloaca
 
     package_name "Cloaca"
 
-    desc "add-integer-index-column", "adds a index column to a stream of data"
-    method_option :"col-sep", type: :string, default: "|", banner: "column delimiter"
-    method_option :header, type: :string
-    method_option :index, type: :numeric
-    method_option :"row-offset", type: :numeric, default: 0, banner: "initial index offset"
+    desc "add-numeric-index-column", "adds a index column to a stream of data"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"index-header", type: :string, banner: "index header value or omit if no header row"
+    method_option :"index-delta", type: :numeric, default: 1, banner: "delta between consecutive index values"
+    method_option :"index-seed", type: :numeric, default: 0, banner: "initial index value"
 
-    def add_integer_index_column
-      fail "row-offset must be an integer" if options[:"row-offset"] != options[:"row-offset"].to_i
-      Operations::AddIntegerIndexColumn.new(parse_options).run!
+    def add_numeric_index_column
+      Operations::AddNumericIndexColumn.new(parse_options).run!
     end
 
     private
 
+    def assert_integer(key)
+      if options[key] != options[key].to_i
+        raise(Thor::MalformattedArgumentError.new("Expected integer value for '--#{key}'; got \"#{options[key]}\""))
+      end
+    end
+
     def parse_options
       {
-        col_header: options[:header],
-        col_sep: options[:"col-sep"],
-        row_offset: options[:"row-offset"],
+        column_delimiter: options[:"col-delim"],
+        index_delta: options[:"index-delta"],
+        index_header: options[:"index-header"],
+        index_seed: options[:"index-seed"],
         input: $stdin,
         output: $stdout,
       }
