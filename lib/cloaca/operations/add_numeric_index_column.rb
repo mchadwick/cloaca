@@ -7,7 +7,8 @@ module Cloaca::Operations
       index_header:,
       index_seed:,
       input:,
-      output:
+      output:,
+      **
     )
       @column_delimiter = column_delimiter
       @index_delta = index_delta
