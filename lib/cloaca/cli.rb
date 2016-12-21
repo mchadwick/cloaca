@@ -25,6 +25,15 @@ module Cloaca
       Operations::AddNumericIndexColumn.new(parse_options).run!
     end
 
+    desc "add-fixed-value-column", "adds a fixed value column to a stream of data"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"col-header", type: :string, banner: "header value or omit if no header row"
+    method_option :"col-value", type: :string, required: true, banner: "column cell value"
+
+    def add_fixed_value_column
+      Operations::AddFixedValueColumn.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
@@ -36,6 +45,8 @@ module Cloaca
     def parse_options
       {
         column_delimiter: options[:"col-delim"],
+        column_header: options[:"col-header"],
+        column_value: options[:"col-value"],
         index_delta: options[:"index-delta"],
         index_header: options[:"index-header"],
         index_seed: options[:"index-seed"],
