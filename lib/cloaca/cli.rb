@@ -42,6 +42,15 @@ module Cloaca
       Operations::ChangeColumnDelimiter.new(parse_options).run!
     end
 
+
+    desc "check-headers-unique", "checks that each column has a unique header value"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"case-sensitive", type: :boolean, default: false, banner: "perform case sensitive check"
+
+    def check_headers_unique
+      Operations::CheckRowValuesUnique.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
@@ -52,6 +61,7 @@ module Cloaca
 
     def parse_options
       {
+        case_sensitive: options[:"case-sensitive"],
         column_delimiter: options[:"col-delim"],
         column_header: options[:"col-header"],
         column_value: options[:"col-value"],
