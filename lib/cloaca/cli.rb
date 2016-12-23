@@ -51,6 +51,14 @@ module Cloaca
       Operations::CheckRowValuesUnique.new(parse_options).run!
     end
 
+    desc "remove-column (index or value)", "removes the column"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"index-or-value", type: :string, required: true, banner: "column index or header"
+
+    def remove_column
+      Operations::RemoveColumn.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
@@ -67,6 +75,7 @@ module Cloaca
         column_value: options[:"col-value"],
         index_delta: options[:"index-delta"],
         index_header: options[:"index-header"],
+        index_or_value: options[:"index-or-value"],
         index_seed: options[:"index-seed"],
         input: $stdin,
         new_column_delimiter: options[:"new-col-delim"],
