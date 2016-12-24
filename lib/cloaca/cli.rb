@@ -51,6 +51,20 @@ module Cloaca
       Operations::CheckRowValuesUnique.new(parse_options).run!
     end
 
+    desc "generate-int N", "generates N random integers, one per line"
+    method_option :count, type: :numeric, default: 1
+    method_option :min, type: :numeric, default: 0
+    method_option :max, type: :numeric, default: 100000
+    method_option :delay_in_ms, type: :numeric, default: 1000, banner: "N milliseconds"
+
+    def generate_int
+      assert_integer(:min)
+      assert_integer(:max)
+      assert_less_than(:min, :max)
+
+      Operations::GenerateRandomIntegers.new(parse_options).run!
+    end
+
     desc "remove-column (index or value)", "removes the column"
     method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
     method_option :"index-or-value", type: :string, required: true, banner: "column index or header"
@@ -67,17 +81,27 @@ module Cloaca
       end
     end
 
+    def assert_less_than(a, b)
+      if options[a] > options[b]
+        raise(Thor::MalformattedArgumentError.new("Expected #{a} to be less than or equal to #{b} ; got \"#{options[a]}\" which is not <= \"#{options[b]}\""))
+      end
+    end
+
     def parse_options
       {
         case_sensitive: options[:"case-sensitive"],
         column_delimiter: options[:"col-delim"],
         column_header: options[:"col-header"],
         column_value: options[:"col-value"],
+        count: options[:count],
+        delay_in_ms: options[:delay_in_ms],
         index_delta: options[:"index-delta"],
         index_header: options[:"index-header"],
         index_or_value: options[:"index-or-value"],
         index_seed: options[:"index-seed"],
         input: $stdin,
+        max: options[:max],
+        min: options[:min],
         new_column_delimiter: options[:"new-col-delim"],
         old_column_delimiter: options[:"old-col-delim"],
         output: $stdout,
