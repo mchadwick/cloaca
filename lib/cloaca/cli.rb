@@ -92,11 +92,25 @@ module Cloaca
       Operations::RemoveColumnQuotes.new(parse_options).run!
     end
 
+    desc "remove-header-row", "removes the first N rows (default N = 1)"
+    method_option :count, type: :numeric, default: 1
+
+    def remove_header_row
+      assert_greater_than_zero(:count)
+      Operations::RemoveSequentialRows.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
       if options[key] != options[key].to_i
         raise(Thor::MalformattedArgumentError.new("Expected integer value for '--#{key}'; got \"#{options[key]}\""))
+      end
+    end
+
+    def assert_greater_than_zero(key)
+      if options[key] < 0
+        raise(Thor::MalformattedArgumentError.new("Expected #{jet} to be greater than 0 ; got \"#{options[key]}\" which is not > 0"))
       end
     end
 
@@ -114,6 +128,7 @@ module Cloaca
         column_value: options[:"col-value"],
         count: options[:count],
         delay_in_ms: options[:delay_in_ms],
+        ending_row_offset: options[:"ending-row-offset"] || options[:count],
         index_delta: options[:"index-delta"],
         index_header: options[:"index-header"],
         index_or_value: options[:"index-or-value"],
@@ -124,6 +139,7 @@ module Cloaca
         new_column_delimiter: options[:"new-col-delim"],
         old_column_delimiter: options[:"old-col-delim"],
         row_offset: options[:"row-offset"],
+        starting_row_offset: options[:"starting-row-offset"] || 0,
         output: $stdout,
       }
     end
