@@ -34,8 +34,6 @@ describe Cloaca::Operations::RemoveColumn do
 
     it "ignores a column which cannot be found by position" do
       described_class.new(options.merge(index_or_value: 9)).run!
-      puts "HI"
-      puts result_rows.inspect
       expect(result_rows.first).to eq("A|B|C|D")
     end
 
