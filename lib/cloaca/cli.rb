@@ -84,6 +84,14 @@ module Cloaca
       Operations::RemoveColumn.new(parse_options).run!
     end
 
+    desc "remove-col-quotes", "removes quotes from a column's values"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"index-or-value", type: :string, required: true, banner: "column index or header"
+
+    def remove_col_quotes
+      Operations::RemoveColumnQuotes.new(parse_options).run!
+    end
+
     private
 
     def assert_integer(key)
