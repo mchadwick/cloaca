@@ -1,5 +1,6 @@
 module Cloaca::Operations
   class ExtractUniqueColumnValues
+    include Cloaca::Util::ColumnLookup
 
     def initialize(
       column_delimiter:,
@@ -21,16 +22,7 @@ module Cloaca::Operations
 
       @input.each_with_index do |line, index|
         if index == 0
-          # TODO: extract in order to maintain consistency in lookup implementation (see remove-column operation)
-          header = line.strip.split(@column_delimiter)
-
-          # Preference given to header name instead of position
-          @column_index = header.index(@index_or_value)
-
-          # Fallback to position
-          if !@column_index && @index_or_value && @index_or_value.to_f == @index_or_value.to_i
-            @column_index = @index_or_value.to_i
-          end
+          @column_index = extract_index(line, @column_delimiter, @index_or_value)
         end
 
         if @column_index

@@ -1,5 +1,6 @@
 module Cloaca::Operations
   class RemoveColumn
+    include Cloaca::Util::ColumnLookup
 
     def initialize(
       column_delimiter:,
@@ -17,15 +18,7 @@ module Cloaca::Operations
     def run!
       @input.each_with_index do |line, index|
         if index == 0
-          header = line.strip.split(@column_delimiter)
-
-          # Preference given to header name instead of position
-          @column_index = header.index(@index_or_value)
-
-          # Fallback to position
-          if !@column_index && @index_or_value == @index_or_value.to_i
-            @column_index = @index_or_value.to_i
-          end
+          @column_index = extract_index(line, @column_delimiter, @index_or_value)
         end
 
         if @column_index
