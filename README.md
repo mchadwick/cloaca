@@ -1,4 +1,5 @@
 [![Version     ](https://img.shields.io/gem/v/cloaca.svg?style=flat)](https://rubygems.org/gems/cloaca)
+[![Build Status](https://img.shields.io/travis/mchadwick/cloaca/master.svg?style=flat)](https://travis-ci.org/mchadwick/cloaca)
 [![Code Climate](https://img.shields.io/codeclimate/github/mchadwick/cloaca.svg?style=flat)](https://codeclimate.com/github/mchadwick/cloaca)
 
 # Cloaca
