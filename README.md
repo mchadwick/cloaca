@@ -1,4 +1,6 @@
 [![Version     ](https://img.shields.io/gem/v/cloaca.svg?style=flat)](https://rubygems.org/gems/cloaca)
+[![Code Climate](https://img.shields.io/codeclimate/github/mchadwick/cloaca.svg?style=flat)](https://codeclimate.com/github/mchadwick/cloaca)
+
 # Cloaca
 
 Cloaca provides a library of transformations for CSV files and other row structured data.
