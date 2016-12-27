@@ -1,6 +1,10 @@
 require "bigdecimal"
 require "bigdecimal/util"
-require "SecureRandom"
+begin
+  require "SecureRandom"
+  rescue LoadError
+    puts "Could not load 'SecureRandom'"
+  end
 require "thor"
 
 require "cloaca/version"
