@@ -9,7 +9,7 @@ describe Cloaca::Operations::GenerateRandomIntegers do
   def options(overrides = {})
     {
       count: 0,
-      delay_in_seconds: 0,
+      delay_in_ms: 0,
       min: 0,
       max: 10,
       output: output,
@@ -32,8 +32,8 @@ describe Cloaca::Operations::GenerateRandomIntegers do
   end
 
   it "can delay the time between each number" do
-    expect_any_instance_of(described_class).to receive(:sleep).with(1).exactly(2).times
-    described_class.new(options.merge(count: 3, delay_in_seconds: 1)).run!
+    expect_any_instance_of(described_class).to receive(:sleep).with(0.001).exactly(2).times
+    described_class.new(options.merge(count: 3, delay_in_ms: 1)).run!
   end
 
   it "only generates numbers greater than or equal to min" do
