@@ -24,7 +24,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```bash
+exe/cloaca
+
+Cloaca commands:
+  cloaca add-fixed-value-column --col-value=column cell value                    # adds a fixed value column to a stream of data
+  cloaca add-integer-index-column                                                # adds a index column to a stream of data
+  cloaca add-numeric-index-column                                                # adds a index column to a stream of data
+  cloaca change-col-delimiter --new-col-delim=column delimiter                   # change the column delimiter for a stream of data
+  cloaca check-headers-unique                                                    # checks that each column has a unique header value
+  cloaca extract-unique-col-values --index-or-value=column index or header       # extract unique vlaues for a column, one per line
+  cloaca generate-int N                                                          # generates N random integers, one per line
+  cloaca help [COMMAND]                                                          # Describe available commands or one specific command
+  cloaca remove-col-quotes --index-or-value=column index or header               # removes quotes from a column's values
+  cloaca remove-column (index or value) --index-or-value=column index or header  # removes the column
+  cloaca remove-header-row                                                       # removes the first N rows (default N = 1)
+```
 
 
 ## What's in a Name?
