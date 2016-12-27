@@ -51,6 +51,17 @@ module Cloaca
       Operations::CheckRowValuesUnique.new(parse_options).run!
     end
 
+    desc "extract-unique-col-values", "extract unique vlaues for a column, one per line"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :"index-or-value", type: :string, required: true, banner: "column index or header"
+    method_option :"row-offset", type: :numeric, default: 0, banner: "initial offset (use 1 to skip a single row header)"
+
+    def extract_unique_col_values
+      assert_integer(:"row-offset")
+
+      Operations::ExtractUniqueColumnValues.new(parse_options).run!
+    end
+
     desc "generate-int N", "generates N random integers, one per line"
     method_option :count, type: :numeric, default: 1
     method_option :min, type: :numeric, default: 0
@@ -104,6 +115,7 @@ module Cloaca
         min: options[:min],
         new_column_delimiter: options[:"new-col-delim"],
         old_column_delimiter: options[:"old-col-delim"],
+        row_offset: options[:"row-offset"],
         output: $stdout,
       }
     end
