@@ -1,5 +1,11 @@
 sudo: false
 language: ruby
+branches:
+  only:
+    - master
+    - auto
+    - /.+-dev$/
+    - /.+-stable$/
 rvm:
   - 2.2.3
 before_install: gem install bundler -v 1.13.6
