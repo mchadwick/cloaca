@@ -42,13 +42,25 @@ module Cloaca
       Operations::ChangeColumnDelimiter.new(parse_options).run!
     end
 
-
     desc "check-headers-unique", "checks that each column has a unique header value"
     method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
     method_option :"case-sensitive", type: :boolean, default: false, banner: "perform case sensitive check"
 
     def check_headers_unique
       Operations::CheckRowValuesUnique.new(parse_options).run!
+    end
+
+    desc "check-row-column-counts", "checks that each row has N columns"
+    method_option :"col-delim", type: :string, default: "|", banner: "column delimiter"
+    method_option :count, type: :numeric, banner: "column count, defaults to header column count"
+
+    def check_row_column_counts
+      if options[:count]
+        assert_greater_than_zero(:count)
+        assert_integer(:count)
+      end
+
+      Operations::CheckRowColumnCount.new(parse_options).run!
     end
 
     desc "extract-unique-col-values", "extract unique vlaues for a column, one per line"
