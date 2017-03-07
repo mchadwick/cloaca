@@ -1,5 +1,6 @@
 require "bigdecimal"
 require "bigdecimal/util"
+require "securerandom"
 require "thor"
 
 require "cloaca/version"
