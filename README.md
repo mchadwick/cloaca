@@ -4,6 +4,8 @@
 
 # Cloaca
 
+This project is archived and is no actively maintained.
+
 Cloaca provides a library of transformations for CSV files and other row structured data.
 
 It does this by providing command-line operations for manipulating a data stream. Operations can be concatenated to perform more complex file transformations.
